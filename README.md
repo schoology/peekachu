@@ -1,4 +1,4 @@
 peekachu
 ========
 
-Utility for peeking at key values in memcache. Supports compression via FastLZ.
+Utility for peeking a key values in memcache. Support compression via FastLZ.

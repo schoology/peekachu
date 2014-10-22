@@ -27,3 +27,17 @@
 *.i*86
 *.x86_64
 *.hex
+
+# Autotools artifacts
+configure
+config.h.in
+config.h
+config.log
+config.status
+autoscan.log
+autom4te.cache
+aclocal.m4
+stamp-h1
+Makefile
+Makefile.in
+.deps/
