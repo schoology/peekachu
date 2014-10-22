@@ -96,68 +96,6 @@ int si_decompress(const char *input, int input_len, char **output) {
     return 0;
 }
 
-void compression_test() {
-    char *data = "IamTextIamTextIamTextIamTextIamText";
-    char *comp;
-    char *decomp;
-    int len;
-    len = si_compress(data, strlen(data), &comp);
-
-    printf("\n-- COMPRESSION_TEST --\n");
-
-    if (len <= 0) {
-        printf("Error compressing: %d\n", len);
-        return;
-    }
-    else {
-        int i;
-        printf("Compressed Data:\n");
-        printf("len: %d\n", len);
-        for (i = 0; i < len; ++i) {
-            printf("%c", comp[i]);
-        }
-        printf("\n");
-    }
-
-    len = si_decompress(comp, len, &decomp);
-
-    if (len <= 0) {
-        printf("Error decompressing: %d\n", len);
-        return;
-    }
-    else {
-        int i;
-        printf("Decompressed Data:\n");
-        for (i = 0; i < len; ++i) {
-            printf("%c", decomp[i]);
-        }
-        printf("\n");
-    }
-
-    free(comp);
-    free(decomp);
-}
-
-void full_test() {
-    const char *key = "footext";
-    const char *sent = "I am some text that the footext key will text text text text store text.";
-    size_t sent_len;
-    char *raw;
-    size_t raw_len;
-    char *value;
-    size_t value_len;
-
-    printf("\n-- FULL_TEST --\n");
-
-    memcached_st *mc = si_connect("localhost", -1);
-
-    sent_len = si_set(mc, key, sent, strlen(sent), 1);
-    printf("%d compressed to %d before sending\n", strlen(sent), sent_len);
-
-    si_get(mc, key, 1, &raw, &raw_len, &value, &value_len);
-    printf("%s\n", value);
-}
-
 static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     struct si_context_t *ctx = state->input;
 
