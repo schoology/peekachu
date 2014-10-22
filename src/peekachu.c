@@ -230,18 +230,24 @@ int si_peek(struct si_context_t *ctx) {
         printf("\n|----- BEGIN RAW VALUE -----|\n");
         printchars(raw, raw_len); 
         printf("\n|-----  END RAW VALUE  -----|\n");
-        free(raw);
     }
 
-    if (value == NULL) {
+    if (value_len == 0 && ctx->compression) {
         printf("Value doesn't seem to be compressed...you sure it should be?\n");
     }
-    else {
+    else if (ctx->compression) {
         printf("\n|----- BEGIN VALUE -----|\n");
         printchars(value, value_len);
         printf("\n|-----  END VALUE  -----|\n");
         free(value);
     }
+    else {
+        printf("\n|----- BEGIN VALUE -----|\n");
+        printchars(raw, raw_len);
+        printf("\n|-----  END VALUE  -----|\n");
+    }
+
+    free(raw);
 
     return 1;
 }
